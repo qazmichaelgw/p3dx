@@ -1,0 +1,28 @@
+<launch>
+
+        <!-- publish the required transform /base_link -> /laser -->
+        <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser" args="0 0 0.1397 0 0 0 base_link laser 100" />
+
+        <!-- if you use a sicklms instead of a hokuyo laser: -->
+        <node pkg="sicktoolbox_wrapper" type="sicklms" name="sicklms_node" >
+               <param name="port" type="string" value="/dev/ttyUSB0" />
+               <param name="baud" type="int" value="38400" />
+        </node>
+
+        <!-- open the ps3 joy to control the robot moving -->
+        <include file="$(find p3dx)/launch/ps3_controller.launch" />
+
+        <!-- begin gmapping -->
+        <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" >
+        	<!-- <remap from="base_scan" to="scan" /> -->
+        	<param name="particles" value="100"/>
+        	<param name="linearUpdate" value="0.1" />
+        	<param name="angularUpdate" value="0.03" />
+        </node>
+
+        <!-- open rviz for observing -->
+        <node pkg="rviz" type="rviz" name="rviz" />
+
+        <!-- record bag file -->
+        <!-- <node pkg="rosbag" type="record" name="record" args="-O SocMap /base_scan /tf" /> -->
+</launch>

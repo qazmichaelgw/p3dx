@@ -1,0 +1,8 @@
+<launch>
+	<!-- <node pkg="ps3joy" type="ps3joy.py" name="ps3joy_node" /> -->
+	<node pkg="joy" type="joy_node" name="joy_node" />
+	<node pkg="ps3_robot_controller" type="ps3_robot_controller_node" name="ps3_robot_controller" />
+	<node pkg="rosaria" type="RosAria" name="RosAria" >
+		<param name="port" value="/dev/ttyUSB1" />
+	</node>
+</launch>

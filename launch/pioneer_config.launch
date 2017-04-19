@@ -1,0 +1,10 @@
+<launch>
+  <node pkg="sicktoolbox_wrapper" type="sicklms" name="sicklms_node" >
+               <param name="port" type="string" value="/dev/ttyUSB0" />
+                <param name="baud" type="int" value="38400" />
+  </node>
+
+  <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser" args="0 0 0.1397 0 0 0 base_link laser 100" />
+
+  <node pkg="rviz" type="rviz" name="rviz" />
+</launch>
